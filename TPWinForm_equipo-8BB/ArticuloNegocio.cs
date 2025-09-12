@@ -12,38 +12,56 @@ namespace TPWinForm_equipo_8BB
     {
         public List<Articulo> Listar()
         {
-            List<Articulo> lista = new List<Articulo>();
+            List<Articulo> listaArticulos = new List<Articulo>();
             SqlConnection conexion = new SqlConnection();
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector;
+            SqlCommand comandoArticulo = new SqlCommand();
+            SqlDataReader lectorArticulo;
+           
+            
 
             try
             {
-                conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_P3_DB; integrated security=true"; 
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio FROM ARTICULOS";
-                comando.Connection = conexion;
-
+                //CONEXION A BASE DE DATOS
+                conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_P3_DB; integrated security=true";
                 conexion.Open();
-                lector = comando.ExecuteReader();
 
-                while(lector.Read())
+
+                //ARTICULOS
+                comandoArticulo.CommandType = System.Data.CommandType.Text;
+                comandoArticulo.CommandText = "SELECT a.Id, a.Nombre, a.Codigo, a.Descripcion, a.IdMarca, a.IdCategoria, a.Precio, i.ImagenUrl FROM ARTICULOS a LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id;";
+                comandoArticulo.Connection = conexion;
+
+
+           
+                //leer ARTICULOS
+                lectorArticulo = comandoArticulo.ExecuteReader();
+                while (lectorArticulo.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.Id = (int)lector["Id"];
-                    aux.Codigo = (string)lector["Codigo"];
-                    aux.Nombre = (string)lector["Nombre"];
-                    aux.Descripcion = (string)lector["Descripcion"];
+                    aux.Id = (int)lectorArticulo["Id"];
+                    aux.Codigo = (string)lectorArticulo["Codigo"];
+                    aux.Nombre = (string)lectorArticulo["Nombre"];
+                    aux.Descripcion = (string)lectorArticulo["Descripcion"];
                     aux.Marca = new Marca();
-                    aux.Marca.IdMarca = (int)lector["IdMarca"];
+                    aux.Marca.IdMarca = (int)lectorArticulo["IdMarca"];
                     aux.Categoria = new Categoria();
-                    aux.Categoria.IdCategoria = (int)lector["IdCategoria"];
-                    aux.precio = (decimal)lector["Precio"];
-                    lista.Add(aux);
-                }
+                    aux.Categoria.IdCategoria = (int)lectorArticulo["IdCategoria"];
+                    aux.precio = (decimal)lectorArticulo["Precio"];
 
-                   
+                    aux.Imagenes = new List<Imagen>();
+                    Imagen imagen = new Imagen();
+                    imagen.ImagenUrl = (string)lectorArticulo["ImagenUrl"];
+                    imagen.IdArticulo = aux.Id;
+                    aux.Imagenes.Add(imagen);
+
+                    listaArticulos.Add(aux);
+                }
+                //lectorArticulo.Close();
+
                 
+
+
+
             }
             catch (Exception ex)
             {
@@ -54,7 +72,7 @@ namespace TPWinForm_equipo_8BB
                 conexion.Close();
             }
 
-            return lista;
+            return listaArticulos;
 
         }
     }
