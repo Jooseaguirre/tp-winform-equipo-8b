@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPWinForm_equipo_8BB
+namespace dominio
 {
-    internal class Categoria
+    public class Marca
     {
 
-        public int IdCategoria { get; set; }
+        public int IdMarca { get; set; }
 
         public string Descripcion { get; set; }
 
-
-
         public override string ToString()
         {
-            return IdCategoria.ToString();
+            return Descripcion.ToString();
         }
-    }
+
     }
 
+
+}

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPWinForm_equipo_8BB
+namespace dominio
 {
-    internal class Imagen
+    public  class Imagen
     {
         public int Id { get; set; }
         public int IdArticulo { get; set; }

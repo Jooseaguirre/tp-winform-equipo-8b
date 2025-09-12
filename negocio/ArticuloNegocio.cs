@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dominio;
 
-namespace TPWinForm_equipo_8BB
+namespace negocio
 {
-    internal class ArticuloNegocio
+    public class ArticuloNegocio
     {
         public List<Articulo> Listar()
         {
@@ -28,7 +29,8 @@ namespace TPWinForm_equipo_8BB
 
                 //ARTICULOS
                 comandoArticulo.CommandType = System.Data.CommandType.Text;
-                comandoArticulo.CommandText = "SELECT a.Id, a.Nombre, a.Codigo, a.Descripcion, a.IdMarca, a.IdCategoria, a.Precio, i.ImagenUrl FROM ARTICULOS a LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id;";
+                //comandoArticulo.CommandText = "SELECT a.Id, a.Nombre, a.Codigo, a.Descripcion, a.IdMarca, a.IdCategoria, a.Precio, i.ImagenUrl FROM ARTICULOS a LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id;";
+                comandoArticulo.CommandText = "SELECT A.Id, A.Nombre, A.Codigo, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio, I.ImagenUrl FROM ARTICULOS A LEFT JOIN MARCAS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id LEFT JOIN IMAGENES I ON A.Id = I.IdArticulo;";
                 comandoArticulo.Connection = conexion;
 
 
@@ -43,9 +45,9 @@ namespace TPWinForm_equipo_8BB
                     aux.Nombre = (string)lectorArticulo["Nombre"];
                     aux.Descripcion = (string)lectorArticulo["Descripcion"];
                     aux.Marca = new Marca();
-                    aux.Marca.IdMarca = (int)lectorArticulo["IdMarca"];
+                    aux.Marca.Descripcion = (string)lectorArticulo["Marca"];
                     aux.Categoria = new Categoria();
-                    aux.Categoria.IdCategoria = (int)lectorArticulo["IdCategoria"];
+                    aux.Categoria.Descripcion = lectorArticulo["Categoria"] != DBNull.Value ? (string)lectorArticulo["Marca"] : "SIN DATOS";
                     aux.precio = (decimal)lectorArticulo["Precio"];
 
                     aux.Imagenes = new List<Imagen>();

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dominio;
+using negocio;
 
 namespace TPWinForm_equipo_8BB
 {
@@ -35,7 +37,8 @@ namespace TPWinForm_equipo_8BB
             ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulo = negocio.Listar();
             dgvArticulos.DataSource = listaArticulo;
-            pboxArticulo.Load(listaArticulo[0].Imagenes[0].ImagenUrl);
+            //dgvArticulos.Columns["UrlImagen"].Visible = false;
+            cargarImagen(listaArticulo[0].Imagenes[0].ImagenUrl);
         }
 
         //MENSAJE DE CIERRE APP
