@@ -63,6 +63,23 @@ namespace negocio
             comando.Parameters.AddWithValue(nombre, valor);
         }
 
+
+        public int obtenerId()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                object resultado = comando.ExecuteScalar();
+                return Convert.ToInt32(resultado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public void cerrarConexion()
         {
             if (lector != null)

@@ -15,6 +15,7 @@ namespace TPWinForm_equipo_8BB
     public partial class FrmPrincipal : Form
     {
         private List<Articulo> listaArticulo;
+        private List<Imagen> listaImagenArticulo;
 
 
         public FrmPrincipal()
@@ -34,11 +35,9 @@ namespace TPWinForm_equipo_8BB
             cboTipo.Items.Add("Codigo");
             cboTipo.Items.Add("Marca");
 
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            listaArticulo = negocio.Listar();
-            dgvArticulos.DataSource = listaArticulo;
-            //dgvArticulos.Columns["UrlImagen"].Visible = false;
-            cargarImagen(listaArticulo[0].Imagenes[0].ImagenUrl);
+            //Metodo para que se actualice el form principal de Articulos, cada vez que "Agrego" articulos
+            cargar();
+
         }
 
         //MENSAJE DE CIERRE APP
@@ -51,10 +50,51 @@ namespace TPWinForm_equipo_8BB
         //EVENTO QUE MUESTRA LA IMAGEN DEL ARTICULO
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
+            //Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            //cargarImagen(seleccionado.Imagenes[0].ImagenUrl);
+
+            if (dgvArticulos.CurrentRow == null)
+            {
+                return;
+            }
+                
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.Imagenes[0].ImagenUrl);
+            ImagenNegocio imagenNegocio = new ImagenNegocio();
+            List<Imagen> imagenes = imagenNegocio.ListarPorIdArticulo(seleccionado.Id);
+
+            if (imagenes != null && imagenes.Count > 0 && !string.IsNullOrEmpty(imagenes[0].ImagenUrl))
+            {
+                cargarImagen(imagenes[0].ImagenUrl);
+            }
+            else
+            {
+                cargarImagen("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
+            }
+
 
         }
+
+        //CARGAR LISTA DE ARTICULOS
+        private void cargar()
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {
+                //Listar Articulos
+                listaArticulo = negocio.Listar();
+                dgvArticulos.DataSource = listaArticulo;
+                //cargarImagen(listaArticulo[0].Imagenes[0].ImagenUrl);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+
+        }
+
+
 
         //METODO QUE CARGA LA IMAGEN
         private void cargarImagen(string imagen)
@@ -69,6 +109,12 @@ namespace TPWinForm_equipo_8BB
             }
         }
 
-
+        //AGREGAR ARTICULO
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            FrmAltaArticulo altaArticulo = new FrmAltaArticulo(); 
+            altaArticulo.ShowDialog();
+            cargar();
+        }
     }
 }

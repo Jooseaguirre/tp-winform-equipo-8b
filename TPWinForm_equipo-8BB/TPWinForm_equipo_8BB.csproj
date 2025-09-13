@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmArticulos.cs">
+    <Compile Include="FrmAltaArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmArticulos.Designer.cs">
-      <DependentUpon>FrmArticulos.cs</DependentUpon>
+    <Compile Include="FrmAltaArticulos.Designer.cs">
+      <DependentUpon>FrmAltaArticulos.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
@@ -60,8 +60,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmArticulos.resx">
-      <DependentUpon>FrmArticulos.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAltaArticulos.resx">
+      <DependentUpon>FrmAltaArticulos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
