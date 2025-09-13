@@ -30,13 +30,15 @@ namespace TPWinForm_equipo_8BB
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-           // MessageBox.Show("Bienvenido a la aplicacion");  
-            cboTipo.Items.Add("Nombre");
-            cboTipo.Items.Add("Codigo");
-            cboTipo.Items.Add("Marca");
+            // MessageBox.Show("Bienvenido a la aplicacion");  
+
 
             //Metodo para que se actualice el form principal de Articulos, cada vez que "Agrego" articulos
             cargar();
+            cboCampo.Items.Add("Precio");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Marca");
+
 
         }
 
@@ -57,7 +59,7 @@ namespace TPWinForm_equipo_8BB
             {
                 return;
             }
-                
+
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             ImagenNegocio imagenNegocio = new ImagenNegocio();
             List<Imagen> imagenes = imagenNegocio.ListarPorIdArticulo(seleccionado.Id);
@@ -103,7 +105,7 @@ namespace TPWinForm_equipo_8BB
             {
                 pboxArticulo.Load(imagen);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 pboxArticulo.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
             }
@@ -112,9 +114,45 @@ namespace TPWinForm_equipo_8BB
         //AGREGAR ARTICULO
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FrmAltaArticulo altaArticulo = new FrmAltaArticulo(); 
+            FrmAltaArticulo altaArticulo = new FrmAltaArticulo();
             altaArticulo.ShowDialog();
             cargar();
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Nombre" || opcion == "Marca")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+            }
+            else if (opcion == "Precio")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+        }
+
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+
+            }
         }
     }
 }
