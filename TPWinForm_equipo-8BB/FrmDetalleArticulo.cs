@@ -84,6 +84,8 @@ namespace TPWinForm_equipo_8BB
         // Flechas
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            if (imagenesArticulo.Count == 0) return;
+
             indiceImagen = (indiceImagen + 1) % imagenesArticulo.Count;
             MostrarImagen(indiceImagen);
 
@@ -92,6 +94,7 @@ namespace TPWinForm_equipo_8BB
         private void btnAnterior_Click(object sender, EventArgs e)
         {
             if (imagenesArticulo.Count == 0) return;
+
             int nuevoIndice = (indiceImagen - 1 + imagenesArticulo.Count) % imagenesArticulo.Count;
             MostrarImagen(nuevoIndice);
         }

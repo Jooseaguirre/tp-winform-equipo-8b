@@ -52,16 +52,17 @@
             // 
             // pboxDetalleArticulo
             // 
+            this.pboxDetalleArticulo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pboxDetalleArticulo.Location = new System.Drawing.Point(632, 61);
             this.pboxDetalleArticulo.Name = "pboxDetalleArticulo";
-            this.pboxDetalleArticulo.Size = new System.Drawing.Size(381, 446);
-            this.pboxDetalleArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pboxDetalleArticulo.Size = new System.Drawing.Size(381, 373);
+            this.pboxDetalleArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pboxDetalleArticulo.TabIndex = 2;
             this.pboxDetalleArticulo.TabStop = false;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(902, 663);
+            this.btnVolver.Location = new System.Drawing.Point(934, 663);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(111, 36);
             this.btnVolver.TabIndex = 3;
@@ -71,7 +72,7 @@
             // 
             // btnAnterior
             // 
-            this.btnAnterior.Location = new System.Drawing.Point(632, 586);
+            this.btnAnterior.Location = new System.Drawing.Point(632, 546);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(122, 36);
             this.btnAnterior.TabIndex = 4;
@@ -81,7 +82,7 @@
             // 
             // btonSiguiente
             // 
-            this.btonSiguiente.Location = new System.Drawing.Point(891, 586);
+            this.btonSiguiente.Location = new System.Drawing.Point(891, 546);
             this.btonSiguiente.Name = "btonSiguiente";
             this.btonSiguiente.Size = new System.Drawing.Size(122, 36);
             this.btonSiguiente.TabIndex = 5;
@@ -93,7 +94,7 @@
             // 
             this.lstImagenes.FormattingEnabled = true;
             this.lstImagenes.ItemHeight = 16;
-            this.lstImagenes.Location = new System.Drawing.Point(632, 546);
+            this.lstImagenes.Location = new System.Drawing.Point(632, 502);
             this.lstImagenes.Name = "lstImagenes";
             this.lstImagenes.Size = new System.Drawing.Size(381, 20);
             this.lstImagenes.TabIndex = 6;
@@ -226,7 +227,7 @@
             // 
             this.lblVerImg.AutoSize = true;
             this.lblVerImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVerImg.Location = new System.Drawing.Point(628, 523);
+            this.lblVerImg.Location = new System.Drawing.Point(629, 460);
             this.lblVerImg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVerImg.Name = "lblVerImg";
             this.lblVerImg.Size = new System.Drawing.Size(189, 18);
@@ -237,7 +238,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 711);
+            this.ClientSize = new System.Drawing.Size(1057, 711);
             this.Controls.Add(this.lblVerImg);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.txtMarca);
@@ -259,7 +260,7 @@
             this.Controls.Add(this.pboxDetalleArticulo);
             this.Name = "FrmDetalleArticulo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmDetalleArticulo";
+            this.Text = "Detalle de Articulos";
             this.Load += new System.EventHandler(this.FrmDetalleArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pboxDetalleArticulo)).EndInit();
             this.ResumeLayout(false);
