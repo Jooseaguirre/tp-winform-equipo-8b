@@ -61,25 +61,38 @@ namespace TPWinForm_equipo_8BB
                 if (articulo.Id != 0)
                 {
                     negocio.modificar(articulo);
+
+                    foreach (Imagen img in articulo.Imagenes)
+                    {
+                        //para imag nuevas
+                        if (img.Id == 0) 
+                        {
+                            img.IdArticulo = articulo.Id;
+                            imagenNegocio.agregar(img);
+                        }
+                    }
+
                     MessageBox.Show("Modificado exitosamente");
                 }
-
                 else
                 {
-                    //Guardar artículo y obtener ID
                     int idGenerado = negocio.agregar(articulo);
-                    
-                    //Asignar ID al objeto imagen
-                    imagenArticulo.IdArticulo = idGenerado;
-                    imagenArticulo.ImagenUrl = textUrlImagen.Text;
 
-                    //Guardar imagen
-                    imagenNegocio.agregar(imagenArticulo);
+                    foreach (Imagen img in articulo.Imagenes)
+                    {
+                        //para imag nuevas
+                        if (img.Id == 0)
+                        {
+                            img.IdArticulo = idGenerado;
+                            imagenNegocio.agregar(img);
+                        }
+                    }
 
                     MessageBox.Show("Agregado exitosamente");
                 }
 
                 Close();
+                
             }
             catch (Exception ex)
             {
@@ -114,6 +127,9 @@ namespace TPWinForm_equipo_8BB
                     cboMarca.SelectedValue = articulo.Marca.IdMarca;
                     cboCategoria.SelectedValue = articulo.Categoria.IdCategoria;
 
+                    //ListBox para cargar más deuna imagen
+                    lstImagenes.DataSource = articulo.Imagenes;
+                    lstImagenes.DisplayMember = "ImagenUrl";
                 }
 
             }
@@ -148,6 +164,56 @@ namespace TPWinForm_equipo_8BB
             {
                 textUrlImagen.Text = archivo.FileName;
                 cargarImagen(archivo.FileName);
+            }
+        }
+
+
+        private void btnEliminarImagen_Click(object sender, EventArgs e)
+        {
+            if (lstImagenes.SelectedItem != null)
+            {
+                Imagen seleccionada = (Imagen)lstImagenes.SelectedItem;
+
+                if (seleccionada.Id != 0)
+                {
+                    ImagenNegocio imgNegocio = new ImagenNegocio();
+                    imgNegocio.eliminar(seleccionada.Id);
+                }
+
+                articulo.Imagenes.Remove(seleccionada);
+
+                lstImagenes.DataSource = null;
+                lstImagenes.DataSource = articulo.Imagenes;
+                lstImagenes.DisplayMember = "ImagenUrl";
+            }
+        }
+
+        private void btnAgregarURL_Click(object sender, EventArgs e)
+        {
+            if (textUrlImagen.Text != null && textUrlImagen.Text.Length != 0)
+            {
+
+                // nuevo articulo
+                if (articulo == null)
+                {
+                    articulo = new Articulo();
+                    articulo.Imagenes = new List<Imagen>();
+                }
+
+                Imagen nueva = new Imagen
+                {
+                    IdArticulo = articulo.Id,
+                    ImagenUrl = textUrlImagen.Text
+                };
+
+                articulo.Imagenes.Add(nueva);
+
+                lstImagenes.DataSource = null;
+                lstImagenes.DataSource = articulo.Imagenes;
+                lstImagenes.DisplayMember = "ImagenUrl";
+
+                cargarImagen(textUrlImagen.Text);
+                textUrlImagen.Clear();
             }
         }
     }
