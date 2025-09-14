@@ -97,8 +97,8 @@
             this.Controls.Add(this.lblNombreCategoria);
             this.Controls.Add(this.lblAltaCategoria);
             this.Name = "FrmAltaCategoria";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FrmAltaCategoria";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Alta Categoria";
             this.ResumeLayout(false);
             this.PerformLayout();
 

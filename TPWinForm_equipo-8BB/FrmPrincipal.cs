@@ -15,7 +15,6 @@ namespace TPWinForm_equipo_8BB
     public partial class FrmPrincipal : Form
     {
         private List<Articulo> listaArticulo;
-        private List<Imagen> listaImagenArticulo;
 
         private Articulo articulo = null;
 
@@ -254,6 +253,16 @@ namespace TPWinForm_equipo_8BB
         {
             FrmCategoria categorias = new FrmCategoria();
             categorias.ShowDialog();
+        }
+
+        private void btnDetalleArticulo_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                FrmDetalleArticulo detalle = new FrmDetalleArticulo(seleccionado);
+                detalle.ShowDialog();
+            }
         }
     }
 }

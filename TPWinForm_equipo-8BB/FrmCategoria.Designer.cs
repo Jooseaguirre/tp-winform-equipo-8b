@@ -33,6 +33,7 @@
             this.btnAgregarCategoria = new System.Windows.Forms.Button();
             this.btnModificarCategoria = new System.Windows.Forms.Button();
             this.btnEliminarCategoria = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoria)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             this.lblAltaCategoria.Name = "lblAltaCategoria";
             this.lblAltaCategoria.Size = new System.Drawing.Size(196, 29);
             this.lblAltaCategoria.TabIndex = 0;
-            this.lblAltaCategoria.Text = "Menu Categorias";
+            this.lblAltaCategoria.Text = "Menú Categorias";
             // 
             // dgvCategoria
             // 
@@ -70,7 +71,7 @@
             // 
             // btnModificarCategoria
             // 
-            this.btnModificarCategoria.Location = new System.Drawing.Point(173, 469);
+            this.btnModificarCategoria.Location = new System.Drawing.Point(183, 469);
             this.btnModificarCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.btnModificarCategoria.Name = "btnModificarCategoria";
             this.btnModificarCategoria.Size = new System.Drawing.Size(100, 28);
@@ -90,18 +91,31 @@
             this.btnEliminarCategoria.UseVisualStyleBackColor = true;
             this.btnEliminarCategoria.Click += new System.EventHandler(this.btnEliminarCategoria_Click);
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(669, 512);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(100, 28);
+            this.btnVolver.TabIndex = 5;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // FrmCategoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(782, 553);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnEliminarCategoria);
             this.Controls.Add(this.btnModificarCategoria);
             this.Controls.Add(this.btnAgregarCategoria);
             this.Controls.Add(this.dgvCategoria);
             this.Controls.Add(this.lblAltaCategoria);
             this.Name = "FrmCategoria";
-            this.Text = "FrmCategoria";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Menú Categorias";
             this.Load += new System.EventHandler(this.FrmCategoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoria)).EndInit();
             this.ResumeLayout(false);
@@ -116,5 +130,6 @@
         private System.Windows.Forms.Button btnAgregarCategoria;
         private System.Windows.Forms.Button btnModificarCategoria;
         private System.Windows.Forms.Button btnEliminarCategoria;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

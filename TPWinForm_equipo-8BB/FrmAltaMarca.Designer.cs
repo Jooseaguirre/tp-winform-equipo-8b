@@ -38,24 +38,27 @@
             // lblNombreMarca
             // 
             this.lblNombreMarca.AutoSize = true;
-            this.lblNombreMarca.Location = new System.Drawing.Point(23, 57);
+            this.lblNombreMarca.Location = new System.Drawing.Point(31, 70);
+            this.lblNombreMarca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombreMarca.Name = "lblNombreMarca";
-            this.lblNombreMarca.Size = new System.Drawing.Size(105, 13);
+            this.lblNombreMarca.Size = new System.Drawing.Size(133, 16);
             this.lblNombreMarca.TabIndex = 0;
             this.lblNombreMarca.Text = "Nombre de la marca:";
             // 
             // txtNombreMarca
             // 
-            this.txtNombreMarca.Location = new System.Drawing.Point(143, 54);
+            this.txtNombreMarca.Location = new System.Drawing.Point(191, 66);
+            this.txtNombreMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNombreMarca.Name = "txtNombreMarca";
-            this.txtNombreMarca.Size = new System.Drawing.Size(100, 20);
+            this.txtNombreMarca.Size = new System.Drawing.Size(132, 22);
             this.txtNombreMarca.TabIndex = 1;
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(197, 316);
+            this.btnGuardar.Location = new System.Drawing.Point(263, 389);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(100, 28);
             this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -63,9 +66,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(278, 316);
+            this.btnCancelar.Location = new System.Drawing.Point(371, 389);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(100, 28);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -75,24 +79,27 @@
             // 
             this.lblAltaMarca.AutoSize = true;
             this.lblAltaMarca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAltaMarca.Location = new System.Drawing.Point(11, 9);
+            this.lblAltaMarca.Location = new System.Drawing.Point(15, 11);
+            this.lblAltaMarca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAltaMarca.Name = "lblAltaMarca";
-            this.lblAltaMarca.Size = new System.Drawing.Size(153, 20);
+            this.lblAltaMarca.Size = new System.Drawing.Size(191, 25);
             this.lblAltaMarca.TabIndex = 5;
             this.lblAltaMarca.Text = "Alta/Modificar Marca";
             // 
             // FrmAltaMarca
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 361);
+            this.ClientSize = new System.Drawing.Size(512, 444);
             this.Controls.Add(this.lblAltaMarca);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtNombreMarca);
             this.Controls.Add(this.lblNombreMarca);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmAltaMarca";
-            this.Text = "FrmAltaMarca";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Alta Marca";
             this.ResumeLayout(false);
             this.PerformLayout();
 

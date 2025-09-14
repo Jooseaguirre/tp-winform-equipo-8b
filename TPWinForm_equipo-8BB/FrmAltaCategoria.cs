@@ -15,7 +15,6 @@ namespace TPWinForm_equipo_8BB
     public partial class FrmAltaCategoria : Form
     {
         private CategoriaNegocio negocio = new CategoriaNegocio();
-        private Categoria Categoria;
         public FrmAltaCategoria()
         {
             InitializeComponent();

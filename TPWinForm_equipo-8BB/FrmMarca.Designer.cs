@@ -33,13 +33,14 @@
             this.btnEliminarMarca = new System.Windows.Forms.Button();
             this.lblAltaMarca = new System.Windows.Forms.Label();
             this.dgvMarca = new System.Windows.Forms.DataGridView();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarca)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAgregarMarca
             // 
             this.btnAgregarMarca.Location = new System.Drawing.Point(65, 469);
-            this.btnAgregarMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregarMarca.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarMarca.Name = "btnAgregarMarca";
             this.btnAgregarMarca.Size = new System.Drawing.Size(100, 28);
             this.btnAgregarMarca.TabIndex = 1;
@@ -49,8 +50,8 @@
             // 
             // btnModificarMarca
             // 
-            this.btnModificarMarca.Location = new System.Drawing.Point(173, 469);
-            this.btnModificarMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModificarMarca.Location = new System.Drawing.Point(183, 469);
+            this.btnModificarMarca.Margin = new System.Windows.Forms.Padding(4);
             this.btnModificarMarca.Name = "btnModificarMarca";
             this.btnModificarMarca.Size = new System.Drawing.Size(100, 28);
             this.btnModificarMarca.TabIndex = 2;
@@ -61,7 +62,7 @@
             // btnEliminarMarca
             // 
             this.btnEliminarMarca.Location = new System.Drawing.Point(300, 469);
-            this.btnEliminarMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEliminarMarca.Margin = new System.Windows.Forms.Padding(4);
             this.btnEliminarMarca.Name = "btnEliminarMarca";
             this.btnEliminarMarca.Size = new System.Drawing.Size(100, 28);
             this.btnEliminarMarca.TabIndex = 3;
@@ -78,31 +79,44 @@
             this.lblAltaMarca.Name = "lblAltaMarca";
             this.lblAltaMarca.Size = new System.Drawing.Size(157, 29);
             this.lblAltaMarca.TabIndex = 4;
-            this.lblAltaMarca.Text = "Menu Marcas";
+            this.lblAltaMarca.Text = "Menú Marcas";
             // 
             // dgvMarca
             // 
             this.dgvMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMarca.Location = new System.Drawing.Point(65, 80);
-            this.dgvMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvMarca.Margin = new System.Windows.Forms.Padding(4);
             this.dgvMarca.Name = "dgvMarca";
             this.dgvMarca.RowHeadersWidth = 51;
             this.dgvMarca.Size = new System.Drawing.Size(656, 350);
             this.dgvMarca.TabIndex = 0;
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(669, 512);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(100, 28);
+            this.btnVolver.TabIndex = 5;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // FrmMarcas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(782, 553);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblAltaMarca);
             this.Controls.Add(this.btnEliminarMarca);
             this.Controls.Add(this.btnModificarMarca);
             this.Controls.Add(this.btnAgregarMarca);
             this.Controls.Add(this.dgvMarca);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMarcas";
-            this.Text = "FrmMarca";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Menú Marcas";
             this.Load += new System.EventHandler(this.FrmMarcas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarca)).EndInit();
             this.ResumeLayout(false);
@@ -116,5 +130,6 @@
         private System.Windows.Forms.Button btnEliminarMarca;
         private System.Windows.Forms.Label lblAltaMarca;
         private System.Windows.Forms.DataGridView dgvMarca;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

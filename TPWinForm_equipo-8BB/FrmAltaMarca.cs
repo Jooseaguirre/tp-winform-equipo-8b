@@ -15,7 +15,6 @@ namespace TPWinForm_equipo_8BB
     public partial class FrmAltaMarca : Form
     {
         private MarcaNegocio negocio = new MarcaNegocio();
-        private Marca Marca;
         public FrmAltaMarca()
         {
             InitializeComponent();
