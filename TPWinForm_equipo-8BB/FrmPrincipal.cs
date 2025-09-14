@@ -249,5 +249,11 @@ namespace TPWinForm_equipo_8BB
             FrmMarcas marcas = new FrmMarcas();
             marcas.ShowDialog();    
         }
+
+        private void agregarModificarCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCategoria categorias = new FrmCategoria();
+            categorias.ShowDialog();
+        }
     }
 }

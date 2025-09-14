@@ -29,6 +29,7 @@ namespace TPWinForm_equipo_8BB
                 List<Marca> lista = negocio.listar();
                 dgvMarca.AutoGenerateColumns = true;
                 dgvMarca.DataSource = lista;
+                dgvMarca.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 if (dgvMarca.Columns["IdMarca"] != null)
                     dgvMarca.Columns["IdMarca"].Visible = false;
