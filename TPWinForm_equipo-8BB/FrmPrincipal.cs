@@ -17,10 +17,18 @@ namespace TPWinForm_equipo_8BB
         private List<Articulo> listaArticulo;
         private List<Imagen> listaImagenArticulo;
 
+        private Articulo articulo = null;
 
         public FrmPrincipal()
         {
             InitializeComponent();
+        }
+
+
+        public FrmPrincipal(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
         }
 
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,6 +93,8 @@ namespace TPWinForm_equipo_8BB
                 //Listar Articulos
                 listaArticulo = negocio.Listar();
                 dgvArticulos.DataSource = listaArticulo;
+                //dgvArticulos.Columns["UrlImagen"].Visible = false;
+                dgvArticulos.Columns["Id"].Visible = false;
                 //cargarImagen(listaArticulo[0].Imagenes[0].ImagenUrl);
 
             }
@@ -152,6 +162,37 @@ namespace TPWinForm_equipo_8BB
             {
                 MessageBox.Show(ex.ToString());
 
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            FrmAltaArticulo modificar = new FrmAltaArticulo(seleccionado);
+            modificar.ShowDialog();
+            cargar();
+
+
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Estas seguro de borrar?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                negocio.eliminar(seleccionado.Id);
+                cargar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

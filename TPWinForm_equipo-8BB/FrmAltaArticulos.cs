@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
 using negocio;
+using System.Configuration;
 
 
 
@@ -17,12 +19,19 @@ namespace TPWinForm_equipo_8BB
 {
     public partial class FrmAltaArticulo : Form
     {
+        private Articulo articulo = null;
+        private OpenFileDialog archivo = null;
+
         public FrmAltaArticulo()
         {
             InitializeComponent();
         }
-
-       
+        public FrmAltaArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar Articulo";
+        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -31,31 +40,43 @@ namespace TPWinForm_equipo_8BB
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            Articulo articuloNuevo = new Articulo();
             Imagen imagenArticulo = new Imagen();
-            ArticuloNegocio negocio = new ArticuloNegocio();
             ImagenNegocio imagenNegocio = new ImagenNegocio();
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
 
             try
             {
-                articuloNuevo.Codigo = txtCodigo.Text;
-                articuloNuevo.Nombre = txtNombre.Text;
-                articuloNuevo.Marca = (Marca)cboMarca.SelectedItem;
-                articuloNuevo.Categoria = (Categoria)cboCategoria.SelectedItem;
-                articuloNuevo.Descripcion = txtDescripcion.Text;
-                articuloNuevo.precio = decimal.Parse(txtPrecio.Text);
+                if (articulo == null)
+                    articulo = new Articulo();
 
-                //Guardar artículo y obtener ID
-                int idGenerado = negocio.agregar(articuloNuevo);
-
-                //Asignar ID al objeto imagen
-                imagenArticulo.IdArticulo = idGenerado;
+                articulo.Codigo = txtCodigo.Text;
+                articulo.Nombre = txtNombre.Text;
+                articulo.Marca = (Marca)cboMarca.SelectedItem;
+                articulo.Categoria = (Categoria)cboCategoria.SelectedItem;
+                articulo.Descripcion = txtDescripcion.Text;
                 imagenArticulo.ImagenUrl = textUrlImagen.Text;
+                articulo.precio = decimal.Parse(txtPrecio.Text);
 
-                //Guardar imagen
-                imagenNegocio.agregar(imagenArticulo);
+                if (articulo.Id != 0)
+                {
+                    negocio.modificar(articulo);
+                    MessageBox.Show("Modificado exitosamente");
+                }
 
-                MessageBox.Show("Agregado exitosamente");
+                else
+                {
+                    //Guardar artículo y obtener ID
+                    int idGenerado = negocio.agregar(articulo);
+                    //Asignar ID al objeto imagen
+                    imagenArticulo.IdArticulo = idGenerado;
+                    imagenArticulo.ImagenUrl = textUrlImagen.Text;
+
+                    //Guardar imagen
+                    
+                    imagenNegocio.agregar(imagenArticulo);
+                }
+
                 Close();
             }
             catch (Exception ex)
@@ -73,7 +94,25 @@ namespace TPWinForm_equipo_8BB
             try
             {
                 cboCategoria.DataSource = categoriaNegocio.listar();
+                cboCategoria.ValueMember = "idCategoria";
+                cboCategoria.DisplayMember = "Descripción";
+
                 cboMarca.DataSource = marcaNegocio.listar();
+                cboMarca.ValueMember = "idMarca";
+                cboMarca.DisplayMember = "Descripción";
+
+                if (articulo != null)
+                {
+                    txtCodigo.Text = articulo.Codigo;
+                    txtNombre.Text = articulo.Nombre;
+                    txtDescripcion.Text = articulo.Descripcion;
+                    txtPrecio.Text = articulo.precio.ToString();
+
+
+                    cboMarca.SelectedValue = articulo.Marca.IdMarca;
+                    cboCategoria.SelectedValue = articulo.Categoria.IdCategoria;
+
+                }
 
             }
             catch (Exception ex)
@@ -96,6 +135,17 @@ namespace TPWinForm_equipo_8BB
             catch (Exception ex)
             {
                 pbxArticulo.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
+            }
+        }
+
+        private void btnImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg;|png|*.png";
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                textUrlImagen.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
             }
         }
     }

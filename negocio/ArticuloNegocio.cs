@@ -16,13 +16,13 @@ namespace negocio
         {
             List<Articulo> listaArticulos = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
-           
-            
+            ImagenNegocio imagenNegocio = new ImagenNegocio();
+
 
             try
             {
                 //TRAER LISTA DE ARTICULOS
-                datos.setearConsulta("SELECT A.Id, A.Nombre, A.Codigo, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A LEFT JOIN MARCAS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id");
+                datos.setearConsulta("SELECT A.Id, A.Nombre, A.Codigo, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio, A.IdCategoria, A.IdMarca, I.Id AS IdImagen, I.ImagenUrl FROM ARTICULOS A LEFT JOIN MARCAS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id LEFT JOIN IMAGENES I ON A.Id = I.IdArticulo ORDER BY A.Id, I.Id;");
                 datos.ejecutarLectura();
 
            
@@ -58,20 +58,16 @@ namespace negocio
 
 
                     aux.Marca = new Marca();
-                    if (!(datos.Lector["Marca"] is DBNull)){
-                        aux.Marca.Descripcion = (string)datos.Lector["Marca"];
-                    }
-                    else
-                    {
-                        aux.Marca.Descripcion = "SIN DATOS";
-                    }
-                    
-                    
+                    aux.Marca.IdMarca = datos.Lector["IdMarca"] != DBNull.Value ? (int)datos.Lector["IdMarca"] : 0;
+                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "SIN DATOS";
+
                     aux.Categoria = new Categoria();
+                    aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? (int)datos.Lector["IdCategoria"] : 0;
                     aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "SIN DATOS";
-                    
+
                     aux.precio = (decimal)datos.Lector["Precio"];
 
+                    aux.Imagenes = imagenNegocio.ListarPorIdArticulo(aux.Id);
 
                     listaArticulos.Add(aux);
                 }
@@ -100,12 +96,19 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) " +
-                                     "VALUES('" + nuevo.Codigo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', @IdMarca, @IdCategoria, " + nuevo.precio + "); " +
-                                     "SELECT SCOPE_IDENTITY();");
-                datos.setearParametro("@IdMarca", nuevo.Marca.IdMarca);
-                datos.setearParametro("@IdCategoria", nuevo.Categoria.IdCategoria);
-                // datos.ejecutarAccion();
+                if (nuevo.Marca == null) nuevo.Marca = new Marca();
+                if (nuevo.Categoria == null) nuevo.Categoria = new Categoria();
+
+                datos.setearConsulta(@"INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio)
+                                        VALUES(@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @precio);
+                                        SELECT CAST(SCOPE_IDENTITY() AS int);");
+
+                datos.setearParametro("@codigo", nuevo.Codigo);
+                datos.setearParametro("@nombre", nuevo.Nombre);
+                datos.setearParametro("@descripcion", nuevo.Descripcion);
+                datos.setearParametro("@idMarca", nuevo.Marca.IdMarca);
+                datos.setearParametro("@idCategoria", nuevo.Categoria.IdCategoria);
+                datos.setearParametro("@precio", nuevo.precio);
 
                 return datos.obtenerId();//Este metodo debe devolver el ID generado
             }
@@ -117,6 +120,52 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void modificar(Articulo modificar)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                if (modificar.Marca == null) modificar.Marca = new Marca();
+                if (modificar.Categoria == null) modificar.Categoria = new Categoria();
+
+                datos.setearConsulta(@"UPDATE ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca,  IdCategoria = @idCategoria, Precio = @precio
+                                   WHERE Id = @id");
+
+                datos.setearParametro("@codigo", modificar.Codigo);
+                datos.setearParametro("@nombre", modificar.Nombre);
+                datos.setearParametro("@descripcion", modificar.Descripcion);
+                datos.setearParametro("@idMarca", modificar.Marca.IdMarca);
+                datos.setearParametro("@idCategoria", modificar.Categoria.IdCategoria);
+                datos.setearParametro("@precio", modificar.precio);
+                datos.setearParametro("@id", modificar.Id);
+
+                datos.ejecutarAccion();
+
+
+            }
+
+            catch (Exception ex) { throw ex; }
+
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("Delete from Articulos where id =@id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+
+            catch (Exception ex) { throw ex; }
         }
 
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
