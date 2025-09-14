@@ -68,13 +68,15 @@ namespace TPWinForm_equipo_8BB
                 {
                     //Guardar artículo y obtener ID
                     int idGenerado = negocio.agregar(articulo);
+                    
                     //Asignar ID al objeto imagen
                     imagenArticulo.IdArticulo = idGenerado;
                     imagenArticulo.ImagenUrl = textUrlImagen.Text;
 
                     //Guardar imagen
-                    
                     imagenNegocio.agregar(imagenArticulo);
+
+                    MessageBox.Show("Agregado exitosamente");
                 }
 
                 Close();
@@ -95,11 +97,11 @@ namespace TPWinForm_equipo_8BB
             {
                 cboCategoria.DataSource = categoriaNegocio.listar();
                 cboCategoria.ValueMember = "idCategoria";
-                cboCategoria.DisplayMember = "Descripción";
+                cboCategoria.DisplayMember = "Descripcion";
 
                 cboMarca.DataSource = marcaNegocio.listar();
                 cboMarca.ValueMember = "idMarca";
-                cboMarca.DisplayMember = "Descripción";
+                cboMarca.DisplayMember = "Descripcion";
 
                 if (articulo != null)
                 {
